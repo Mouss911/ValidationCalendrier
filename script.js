@@ -174,6 +174,26 @@ function addListner() {
       }
     });
   });
+
+
+/*function getEventDetails();
+  const eventDetails = getEventDetails(activeDay); // Vous devrez créer cette fonction
+
+  // Remplissez le contenu de la modal avec les détails de l'événement
+  document.getElementById("eventTitle").textContent = eventDetails.title;
+  document.getElementById("eventTime").textContent = eventDetails.time;
+
+  // Affichez la modal
+  const modal = document.getElementById("eventModal");
+  modal.style.display = "block";
+
+  //Bouton fermeture du modal
+  const closeModalBtn = document.querySelector(".close-modal");
+  closeModalBtn.addEventListener("click", () => {
+  const modal = document.getElementById("eventModal");
+  modal.style.display = "none";
+  });
+*/
 }
 
 // Pour aller à la date du jour
@@ -398,6 +418,8 @@ addEventSubmit.addEventListener("click", () => {
   }
 });
 
+
+
 //fonction pour supprimer un evenement quand on click dessus
 eventsContainer.addEventListener("click", (e) => {
   if (e.target.classList.contains("event")) {
@@ -437,7 +459,7 @@ function saveEvents() {
 
 //fonction pour recuperer des evenements local storage
 function getEvents() {
-  //verifier si les evenements sont deja szauvegardés dans le local storage
+  //verifier si les evenements sont deja sauvegardés dans le local storage
   if (localStorage.getItem("events") === null) {
     return;
   }
