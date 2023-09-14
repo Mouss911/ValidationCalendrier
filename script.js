@@ -13,6 +13,7 @@ const calendar = document.querySelector(".calendar"),
   addEventWrapper = document.querySelector(".add-event-wrapper "),
   addEventCloseBtn = document.querySelector(".close "),
   addEventTitle = document.querySelector(".event-name "),
+  addEventDescription = document.querySelector(".event-descript"),
   addEventFrom = document.querySelector(".event-time-from "),
   addEventTo = document.querySelector(".event-time-to "),
   addEventSubmit = document.querySelector(".add-event-btn ");
@@ -132,6 +133,9 @@ function addListner() {
   const days = document.querySelectorAll(".day");
   days.forEach((day) => {
     day.addEventListener("click", (e) => {
+      // afficher le modal pour ajouter un event
+      addEventWrapper.classList.toggle("active"); 
+      
       getActiveDay(e.target.innerHTML);
       updateEvents(Number(e.target.innerHTML));
       activeDay = Number(e.target.innerHTML);
@@ -247,6 +251,7 @@ function getActiveDay(date) {
   const dayName = day.toString().split(" ")[0];
   eventDay.innerHTML = dayName;
   eventDate.innerHTML = date + " " + months[month] + " " + year;
+  
   //rtFR.format('day');
 }
 
@@ -277,32 +282,38 @@ function updateEvents(date) {
   // Si aucun evenement n'est trouvé
   if (events === "") {
     events = `<div class="no-event">
-            <h3>Pas d'Evenements</h3>
+            <h3>Aucune tâche ajoutée</h3>
         </div>`;
   }
   eventsContainer.innerHTML = events;
   saveEvents();
+  
 }
 
 // Fonction pour ajouter un événement
-addEventBtn.addEventListener("click", () => {
-  addEventWrapper.classList.toggle("active");
-});
+// addEventBtn.addEventListener("click", () => {
+//   addEventWrapper.classList.toggle("active");
+// });
 
 addEventCloseBtn.addEventListener("click", () => {
   addEventWrapper.classList.remove("active");
 });
 
-document.addEventListener("click", (e) => {
-  // Si on clique en dehors du champ
-  if (e.target !== addEventBtn && !addEventWrapper.contains(e.target)) {
-    addEventWrapper.classList.remove("active");
-  }
-});
+// document.addEventListener("click", (e) => {
+//   // Si on clique en dehors du champ
+//   if (e.target !== addEventBtn && !addEventWrapper.contains(e.target)) {
+//     addEventWrapper.classList.remove("active");
+//   }
+// });
 
 // Limiter à 50 caractères le titre d'un événement
 addEventTitle.addEventListener("input", (e) => {
   addEventTitle.value = addEventTitle.value.slice(0, 60);
+});
+
+// Limiter à 10 caractères la description d'une tâche
+addEventDescription.addEventListener("input", (e)=>{
+  addEventDescription.value = addEventDescription.value.slice(0, 10);
 });
 
 
@@ -332,9 +343,10 @@ addEventTo.addEventListener("input", (e) => {
 //Fonction pour ajouter un événement dans eventsArr
 addEventSubmit.addEventListener("click", () => {
   const eventTitle = addEventTitle.value;
+  const eventDescription = addEventDescription.value;
   const eventTimeFrom = addEventFrom.value;
   const eventTimeTo = addEventTo.value;
-  if (eventTitle === "" || eventTimeFrom === "" || eventTimeTo === "") {
+  if (eventTitle === "" || eventTimeFrom === "" || eventTimeTo === "" || eventDescription === "") {
     alert("Veuillez remplir tous les champs!!!");
     return;
   }
@@ -408,6 +420,7 @@ addEventSubmit.addEventListener("click", () => {
   console.log(eventsArr);
   addEventWrapper.classList.remove("active");
   addEventTitle.value = "";
+  addEventDescription.value = "";
   addEventFrom.value = "";
   addEventTo.value = "";
   updateEvents(activeDay);

@@ -375,7 +375,8 @@ body {
   transition: max-height 0.5s ease;
 }
 .add-event-wrapper.active {
-  max-height: 300px;
+  max-height: 350px;
+  margin-bottom: 200px;
 }
 .add-event-header {
   width: 100%;
